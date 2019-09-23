@@ -1,11 +1,21 @@
 <!DOCTYPE html>
 <html>
+    <% if (!user) { %>
+      <a href="/auth/twitch">Log in</a>
+    <% } else { %>
+      <p>Welcome <%= user.display_name %>!</p>
+      <a href="/auth/logout">Logout</a>
+    <% } %>
   <head>
-    <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <h1>5.1 Nightbot Extensions</h1>
+    <% if (!user) { %>
+      <p>Please log in to access your dashboard</p>
+    <% } else { %>
+      <p>Welcome to your extension dashboard</p>
+    <% } %>
+
   </body>
 </html>
