@@ -48,9 +48,9 @@ router.get('/:id', async function(req, res, next) {
     }
   )
   const calendarJson = await calendar.json();
-  const events = calendarJson.items.map(event => `${moment(event.start.dateTime).format(dateFormat).replace("am","a").replace("pm","p").replace(":00","")}: ${event.summary}`).join("\n")
+  const events = calendarJson.items.map(event => `${moment(event.start.dateTime).format(dateFormat).replace("am","a").replace("pm","p").replace(":00","")}: ${event.summary}`.replace(" "," ")).join(" ")
 
-  return res.status(200).send(message + '\n' + events)
+  return res.status(200).send(message + ' ' + events)
 })
 
 module.exports = router;
