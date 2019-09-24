@@ -10,6 +10,7 @@ var session = require('express-session')
 
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth')(app, passport);
+var gcalRouter = require('./routes/gcal');
 var usersRouter = require('./routes/users');
 
 // serialize and deserialize
@@ -51,6 +52,7 @@ app.use(passport.session());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter);
+app.use('/gcal', gcalRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

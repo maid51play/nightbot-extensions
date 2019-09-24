@@ -15,6 +15,55 @@
       <p>Please log in to access your dashboard</p>
     <% } else { %>
       <p>Welcome to your extension dashboard</p>
+      <h3>gcal integration</h3>
+      <p>lists the upcoming events on a google calendar</p>
+      <form action="/gcal/config" method="post">
+        <div>
+          <label>
+            secret: 
+            <input name="secret" value="<%= settings.gcal.secret %>" />
+          </label>
+        </div>
+        <div>
+          <label>
+            calendar id:
+            <input name="calendarId" value="<%= settings.gcal.calendarId %>" required />
+          </label>
+        </div>
+        <div>
+          <label>
+            api key:
+            <input name="apiKey" value="<%= settings.gcal.apiKey %>" required />
+          </label>
+        </div>
+        <div>
+          <label>
+            number of events to display:
+            <input name="maxResults" value="<%= settings.gcal.maxResults %>" type="number" required />
+          </label>
+        </div>
+        <div>
+          <label>
+            message:
+            <input name="message" value="<%= settings.gcal.message %>" required />
+          </label>
+        </div>
+        <div>
+          <label>
+            date format:
+            <input name="dateFormat" value="<%= settings.gcal.dateFormat %>" required />
+          </label>
+        </div>
+        <div>
+          <button type="submit"><%= settings.gcal.calendarId ? "Update" : "Initialize" %></button>
+        </div>
+      </form>
+      <% if(settings.gcal.calendarId) {%>
+        <p>
+          Custom command:
+          <input value="<%= `$(urlfetch ${process.env.HOST}/gcal/${user.id}?secret=${settings.gcal.secret})` %>" />
+        </p>
+      <% } %>
     <% } %>
 
   </body>
