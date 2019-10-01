@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var fetch = require('node-fetch')
 const db = require('../db')
-const moment = require('moment');
+const moment = require('moment-timezone');
 
 
 router.post('/config', ensureAuthenticated, async function(req, res, next) {
@@ -48,8 +48,7 @@ router.get('/:id', async function(req, res, next) {
     }
   )
   const calendarJson = await calendar.json();
-  const events = calendarJson.items.map(event => `${moment(event.start.dateTime).format(dateFormat).replace("am","a").replace("pm","p").replace(":00","")}: ${event.summary}`.split(" ").join(String.fromCharCode(160))).join(" ")
-
+  const events = calendarJson.items.map(event => `${moment(event.start.dateTime).tz(event.start.timeZone).format(dateFormat).replace("am","a").replace("pm","p").replace(":00","")}: ${event.summary}`.split(" ").join(String.fromCharCode(160))).join(" ")
   return res.status(200).send(message + ' ' + events)
 })
 
